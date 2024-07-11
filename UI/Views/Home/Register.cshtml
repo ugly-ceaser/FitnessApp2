@@ -1,0 +1,23 @@
+﻿@model DataTransferLayer.UserDataTransfer
+
+@{
+    Layout = "../Shared/_LayoutAuth.cshtml";
+}
+
+@using (Html.BeginForm("Register", "Home", FormMethod.Post))
+{
+
+    @Html.Partial("~/Views/Home/Partials/_UserForm.cshtml")
+
+}
+<div class="row">
+
+    <!-- /.col -->
+    <div class="col-4">
+        <span>Have An Account ? </span> <a asp-area="" href="Home/Index">Login !!</a>
+    </div>
+    <!-- /.col -->
+</div>
+
+
+

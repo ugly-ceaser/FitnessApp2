@@ -1,0 +1,72 @@
+﻿@model DataTransferLayer.MetricDataTransfer
+
+@{
+    ViewBag.Title = "Add Metric";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h2>Add Metric for @Model.ActivityName</h2>
+<hr />
+<!-- Display success or error message -->
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div id="successAlert" class="alert alert-success" role="alert">
+        @ViewBag.SuccessMessage
+    </div>
+}
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div id="errorAlert" class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@using (Html.BeginForm("AddMetric", "Profile", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.Name, new SelectList(new List<string> { "Distance", "Speed", "Time" }), "Select", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UnitOfMeasurement, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.UnitOfMeasurement, new SelectList(new List<string> { "Miles", "Minutes per Miles", "Duration" }), "Select", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.UnitOfMeasurement, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Calories, "Target Calories", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Calories, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Calories, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.HiddenFor(model => model.ActivityID) <!-- Use HiddenFor instead of EditorFor -->
+
+    <!-- Add other fields as needed -->
+
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-primary" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Activities", "ViewSingleActivity", "Profile", new { activityId = Model.ActivityID, name = Model.ActivityName }, new { @class = "btn btn-default" })
+</div>
+
+
+
+<script>
+
+    function fadeOutAlert(alertId) {
+        setTimeout(function () {
+            $(alertId).fadeOut(1000);
+        }, 2000);
+    }
+
+
+    fadeOutAlert("#successAlert");
+    fadeOutAlert("#errorAlert");
+</script>

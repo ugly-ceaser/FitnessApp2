@@ -1,0 +1,53 @@
+﻿@model List<DataTransferLayer.FitnessActivityDataTransfer>
+
+@{
+    ViewBag.Title = "View Activity";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h2>User Activities</h2>
+
+<ul class="navbar-nav row">
+    <li class="nav-item col-3">
+        <a href="@Url.Action("AddActivity", "Profile")" class="nav-link text-white btn btn-primary btn-sm">Add Activity</a>
+    </li>
+</ul>
+
+<div>
+    
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Metric Name</th>
+                  
+                   
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var activity in Model)
+                {
+                <tr>
+
+                    <td>@activity.Name</td>
+                    
+
+
+                    <td class="row d-flex justify-center">
+                        <a href="@Url.Action("ViewSingleActivity", "Profile", new { activityId = activity.ActivityId,Name =activity.Name })" class="nav-link text-white btn btn-primary btn-sm col-3">View</a>
+                    </td>
+
+
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No activities found.</p>
+    }
+</div>

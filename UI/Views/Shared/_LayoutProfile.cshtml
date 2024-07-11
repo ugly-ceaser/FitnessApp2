@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FitnessTracker</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FitnessTracker</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            @Html.ActionLink("Home", "Index", "Profile", new { area = "" }, new { @class = "nav-link text-dark" })
+
+                        </li>
+                        <!-- View Activity -->
+                        <li class="nav-item">
+                            @Html.ActionLink("View Activity", "ViewActivity", "Profile", new { area = "" }, new { @class = "nav-link text-dark" })
+                        </li>
+                        <!-- Set Fitness Goals -->
+                        <li class="nav-item">
+                            @Html.ActionLink("Fitness Goals", "FitnessGoals", "Profile", new { area = "" }, new { @class = "nav-link text-dark" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Logout", "Logout", "Profile", new { area = "" }, new { @class = "nav-link text-dark" })
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - FitnessTracker - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-muted">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/Content/js/jquery-3.4.1.js"></script>
+    <!-- Link Bootstrap JS bundle via CDN (includes Popper.js) -->
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <!-- Your custom scripts -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#addActivityFormere').submit(function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Get the selected activity value
+            var activityId = $('#activity').val();
+            var formData = { ActivityId: activityId };
+
+            // Reference to the paragraph element
+            var messageParagraph = $('#message');
+
+            $.ajax({
+                url: '@Url.Action("AddJsonActivity", "Profile")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        messageParagraph.text("Request was successful!");
+                        messageParagraph.addClass("bg-success alert text-center text-white");
+                    } else {
+                        messageParagraph.text("Request was not successful!");
+                        messageParagraph.addClass("bg-danger alert text-center text-white");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    messageParagraph.text("Request was not successful!");
+                    messageParagraph.addClass("bg-danger alert text-center text-white");
+                }
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>

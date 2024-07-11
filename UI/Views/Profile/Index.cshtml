@@ -1,0 +1,40 @@
+﻿@model DataTransferLayer.UserActivitySummaryDataTransfer
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfGoalSet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfGoalSet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfActivitySet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfActivitySet)
+        </dd>
+
+    </dl>
+</div>
+

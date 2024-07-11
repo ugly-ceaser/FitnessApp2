@@ -1,0 +1,64 @@
+﻿@model DataTransferLayer.UserFitnessGoalDataTransfer
+
+@{
+    ViewBag.Title = "FitnessGoals";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h2>FitnessGoals</h2>
+
+<div>
+    <h4>UserFitnessGoalDataTransfer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GoalId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoalId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MetricId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MetricId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoalAmount)
+        </dd>
+
+    </dl>
+</div>
+

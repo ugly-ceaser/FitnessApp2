@@ -1,0 +1,56 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "View Single Activity";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h2>User Activity: @ViewBag.Name</h2>
+
+<ul class="navbar-nav row">
+    <li class="nav-item col-3">
+        <a href="@Url.Action("AddMetric", "Profile", new {ActivityId=ViewBag.ActivityId, Name = ViewBag.Name })" class="nav-link text-white btn btn-primary btn-sm">Add Metric</a>
+    </li>
+
+   
+</ul>
+<h3>Metrics </h3>
+<div>
+    @if (ViewBag.Metrics != null && ViewBag.Metrics.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Unit Of Measurement</th>
+                    <th>Action</th>
+                    <!-- Add other metric columns here -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var metric in ViewBag.Metrics)
+                {
+
+                <tr>
+                    <td>@metric.Name</td>
+                    <td>@metric.UnitOfMeasurement</td>
+                    <td>
+                        
+                            <a href="@Url.Action("AddWorkOut", "Profile", new {ActivityId=ViewBag.ActivityId, Name = @metric.Name,MetricID = @metric.ID })" class="nav-link text-white btn btn-primary btn-sm">Add Work Session</a>
+                        
+                    </td>
+
+
+                    <!-- Add other metric properties here -->
+                </tr>
+                }
+            </tbody>
+        </table>
+        <h5>Target Carolies For Activity : @ViewBag.Goals</h5>
+    }
+    else
+    {
+        <p>No metrics found for this activity.</p>
+        <a href="@Url.Action("AddMetric", "Profile", new {ActivityId=ViewBag.ActivityId, Name = ViewBag.Name })" class="btn btn-primary">Add Metric</a>
+    }
+</div>
