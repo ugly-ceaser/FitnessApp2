@@ -1,0 +1,21 @@
+﻿Generated model file: FitnessTrackerModel.edmx.
+Loading metadata from the database took 00:00:01.1880580.
+Generating the model took 00:00:01.9014459.
+Generated model file: FitnessTrackerModel.edmx.
+Loading metadata from the database took 00:00:00.6279776.
+Generating the model took 00:00:01.8582404.
+Generated model file: FitnessTrackerModel.edmx.
+Loading metadata from the database took 00:00:00.6289656.
+Generating the model took 00:00:01.7958460.
+Generated model file: FitnessTrackerModel.edmx.
+Loading metadata from the database took 00:00:00.5951975.
+Generating the model took 00:00:02.0130356.
+Generated model file: FitnessTrackerModel.edmx.
+Loading metadata from the database took 00:00:00.6180989.
+Generating the model took 00:00:01.7908785.
+Generated model file: FitnessTrackerModel.edmx.
+Loading metadata from the database took 00:00:00.6609910.
+Generating the model took 00:00:01.7716980.
+Generated model file: FitnessTrackerModel.edmx.
+Loading metadata from the database took 00:00:00.6634297.
+Generating the model took 00:00:01.6826955.
