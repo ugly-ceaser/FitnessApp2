@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FitnessTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FitnessGoal">
+          <Key>
+            <PropertyRef Name="GoalID" />
+          </Key>
+          <Property Name="GoalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ActivityID" Type="int" />
+          <Property Name="TargetCalories" Type="int" />
+          <Property Name="ActualCalories" Type="int" />
+        </EntityType>
+        <EntityType Name="FitnessRecord">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ActivityID" Type="int" />
+          <Property Name="NoOfMetricID" Type="int" />
+        </EntityType>
+        <EntityType Name="Metric">
+          <Key>
+            <PropertyRef Name="MetricID" />
+          </Key>
+          <Property Name="MetricID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ActivityID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="UnitOfMeasurement" Type="varchar" MaxLength="225" />
+          <Property Name="TargetCalories" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserWorkouts">
+          <Key>
+            <PropertyRef Name="UserWorkoutID" />
+          </Key>
+          <Property Name="UserWorkoutID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MetricID" Type="int" />
+          <Property Name="ActivityID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="UserWorkout" Type="int" />
+          <Property Name="CaloriesBurnt" Type="int" />
+          <Property Name="WorkoutDate" Type="date" />
+        </EntityType>
+        <Association Name="FK__FitnessGo__Activ__534D60F1">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="FitnessGoal" Type="Self.FitnessGoal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="FitnessGoal">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FitnessGo__UserI__52593CB8">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="FitnessGoal" Type="Self.FitnessGoal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FitnessGoal">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FitnessRe__Activ__70DDC3D8">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="FitnessRecord" Type="Self.FitnessRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="FitnessRecord">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FitnessRe__UserI__6FE99F9F">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="FitnessRecord" Type="Self.FitnessRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FitnessRecord">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Metric__Activity__60A75C0F">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="Metric" Type="Self.Metric" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="Metric">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserWorko__Activ__03F0984C">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="UserWorkouts" Type="Self.UserWorkouts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="UserWorkouts">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserWorko__Metri__02FC7413">
+          <End Role="Metric" Type="Self.Metric" Multiplicity="0..1" />
+          <End Role="UserWorkouts" Type="Self.UserWorkouts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metric">
+              <PropertyRef Name="MetricID" />
+            </Principal>
+            <Dependent Role="UserWorkouts">
+              <PropertyRef Name="MetricID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserWorko__UserI__04E4BC85">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserWorkouts" Type="Self.UserWorkouts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserWorkouts">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Metric_UserID">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Metric" Type="Self.Metric" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Metric">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FitnessTrackerModelStoreContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FitnessGoal" EntityType="Self.FitnessGoal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FitnessRecord" EntityType="Self.FitnessRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Metric" EntityType="Self.Metric" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserWorkouts" EntityType="Self.UserWorkouts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__FitnessGo__Activ__534D60F1" Association="Self.FK__FitnessGo__Activ__534D60F1">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="FitnessGoal" EntitySet="FitnessGoal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FitnessGo__UserI__52593CB8" Association="Self.FK__FitnessGo__UserI__52593CB8">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FitnessGoal" EntitySet="FitnessGoal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FitnessRe__Activ__70DDC3D8" Association="Self.FK__FitnessRe__Activ__70DDC3D8">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="FitnessRecord" EntitySet="FitnessRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FitnessRe__UserI__6FE99F9F" Association="Self.FK__FitnessRe__UserI__6FE99F9F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FitnessRecord" EntitySet="FitnessRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Metric__Activity__60A75C0F" Association="Self.FK__Metric__Activity__60A75C0F">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Metric" EntitySet="Metric" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserWorko__Activ__03F0984C" Association="Self.FK__UserWorko__Activ__03F0984C">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="UserWorkouts" EntitySet="UserWorkouts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserWorko__Metri__02FC7413" Association="Self.FK__UserWorko__Metri__02FC7413">
+            <End Role="Metric" EntitySet="Metric" />
+            <End Role="UserWorkouts" EntitySet="UserWorkouts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserWorko__UserI__04E4BC85" Association="Self.FK__UserWorko__UserI__04E4BC85">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserWorkouts" EntitySet="UserWorkouts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Metric_UserID" Association="Self.FK_Metric_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Metric" EntitySet="Metric" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FitnessTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FitnessGoals" Relationship="Self.FK__FitnessGo__Activ__534D60F1" FromRole="Activity" ToRole="FitnessGoal" />
+          <NavigationProperty Name="FitnessRecords" Relationship="Self.FK__FitnessRe__Activ__70DDC3D8" FromRole="Activity" ToRole="FitnessRecord" />
+          <NavigationProperty Name="Metrics" Relationship="Self.FK__Metric__Activity__60A75C0F" FromRole="Activity" ToRole="Metric" />
+          <NavigationProperty Name="UserWorkouts" Relationship="FitnessTrackerModel.FK__UserWorko__Activ__03F0984C" FromRole="Activity" ToRole="UserWorkout" />
+        </EntityType>
+        <EntityType Name="FitnessGoal">
+          <Key>
+            <PropertyRef Name="GoalID" />
+          </Key>
+          <Property Name="GoalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ActivityID" Type="Int32" />
+          <Property Name="TargetCalories" Type="Int32" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK__FitnessGo__Activ__534D60F1" FromRole="FitnessGoal" ToRole="Activity" />
+          <NavigationProperty Name="User" Relationship="Self.FK__FitnessGo__UserI__52593CB8" FromRole="FitnessGoal" ToRole="Users" />
+          <Property Name="ActualCalories" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FitnessRecord">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ActivityID" Type="Int32" />
+          <Property Name="NoOfMetricID" Type="Int32" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK__FitnessRe__Activ__70DDC3D8" FromRole="FitnessRecord" ToRole="Activity" />
+          <NavigationProperty Name="User" Relationship="Self.FK__FitnessRe__UserI__6FE99F9F" FromRole="FitnessRecord" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Metric">
+          <Key>
+            <PropertyRef Name="MetricID" />
+          </Key>
+          <Property Name="MetricID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ActivityID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK__Metric__Activity__60A75C0F" FromRole="Metric" ToRole="Activity" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Metric_UserID" FromRole="Metric" ToRole="Users" />
+          <Property Name="UnitOfMeasurement" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="TargetCalories" Type="Int32" />
+          <NavigationProperty Name="UserWorkouts" Relationship="FitnessTrackerModel.FK__UserWorko__Metri__02FC7413" FromRole="Metric" ToRole="UserWorkout" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FitnessGoals" Relationship="Self.FK__FitnessGo__UserI__52593CB8" FromRole="Users" ToRole="FitnessGoal" />
+          <NavigationProperty Name="FitnessRecords" Relationship="Self.FK__FitnessRe__UserI__6FE99F9F" FromRole="Users" ToRole="FitnessRecord" />
+          <NavigationProperty Name="Metrics" Relationship="Self.FK_Metric_UserID" FromRole="Users" ToRole="Metric" />
+          <NavigationProperty Name="UserWorkouts" Relationship="FitnessTrackerModel.FK__UserWorko__UserI__04E4BC85" FromRole="User" ToRole="UserWorkout" />
+        </EntityType>
+        <Association Name="FK__FitnessGo__Activ__534D60F1">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="FitnessGoal" Type="Self.FitnessGoal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="FitnessGoal">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FitnessRe__Activ__70DDC3D8">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="FitnessRecord" Type="Self.FitnessRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="FitnessRecord">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Metric__Activity__60A75C0F">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="Metric" Type="Self.Metric" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="Metric">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FitnessGo__UserI__52593CB8">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="FitnessGoal" Type="Self.FitnessGoal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FitnessGoal">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FitnessRe__UserI__6FE99F9F">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="FitnessRecord" Type="Self.FitnessRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FitnessRecord">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Metric_UserID">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Metric" Type="Self.Metric" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Metric">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FitnessTrackerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activities" EntityType="Self.Activity" />
+          <EntitySet Name="FitnessGoals" EntityType="Self.FitnessGoal" />
+          <EntitySet Name="FitnessRecords" EntityType="Self.FitnessRecord" />
+          <EntitySet Name="Metrics" EntityType="Self.Metric" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__FitnessGo__Activ__534D60F1" Association="Self.FK__FitnessGo__Activ__534D60F1">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="FitnessGoal" EntitySet="FitnessGoals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FitnessRe__Activ__70DDC3D8" Association="Self.FK__FitnessRe__Activ__70DDC3D8">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="FitnessRecord" EntitySet="FitnessRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Metric__Activity__60A75C0F" Association="Self.FK__Metric__Activity__60A75C0F">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="Metric" EntitySet="Metrics" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FitnessGo__UserI__52593CB8" Association="Self.FK__FitnessGo__UserI__52593CB8">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FitnessGoal" EntitySet="FitnessGoals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FitnessRe__UserI__6FE99F9F" Association="Self.FK__FitnessRe__UserI__6FE99F9F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FitnessRecord" EntitySet="FitnessRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Metric_UserID" Association="Self.FK_Metric_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Metric" EntitySet="Metrics" />
+          </AssociationSet>
+          <EntitySet Name="UserWorkouts" EntityType="FitnessTrackerModel.UserWorkout" />
+          <AssociationSet Name="FK__UserWorko__Activ__03F0984C" Association="FitnessTrackerModel.FK__UserWorko__Activ__03F0984C">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="UserWorkout" EntitySet="UserWorkouts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserWorko__Metri__02FC7413" Association="FitnessTrackerModel.FK__UserWorko__Metri__02FC7413">
+            <End Role="Metric" EntitySet="Metrics" />
+            <End Role="UserWorkout" EntitySet="UserWorkouts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserWorko__UserI__04E4BC85" Association="FitnessTrackerModel.FK__UserWorko__UserI__04E4BC85">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserWorkout" EntitySet="UserWorkouts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UserWorkout">
+          <Key>
+            <PropertyRef Name="UserWorkoutID" />
+          </Key>
+          <Property Name="UserWorkoutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MetricID" Type="Int32" />
+          <Property Name="ActivityID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="UserWorkout1" Type="Int32" />
+          <Property Name="CaloriesBurnt" Type="Int32" />
+          <Property Name="WorkoutDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Activity" Relationship="FitnessTrackerModel.FK__UserWorko__Activ__03F0984C" FromRole="UserWorkout" ToRole="Activity" />
+          <NavigationProperty Name="Metric" Relationship="FitnessTrackerModel.FK__UserWorko__Metri__02FC7413" FromRole="UserWorkout" ToRole="Metric" />
+          <NavigationProperty Name="User" Relationship="FitnessTrackerModel.FK__UserWorko__UserI__04E4BC85" FromRole="UserWorkout" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__UserWorko__Activ__03F0984C">
+          <End Type="FitnessTrackerModel.Activity" Role="Activity" Multiplicity="0..1" />
+          <End Type="FitnessTrackerModel.UserWorkout" Role="UserWorkout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="UserWorkout">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserWorko__Metri__02FC7413">
+          <End Type="FitnessTrackerModel.Metric" Role="Metric" Multiplicity="0..1" />
+          <End Type="FitnessTrackerModel.UserWorkout" Role="UserWorkout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metric">
+              <PropertyRef Name="MetricID" />
+            </Principal>
+            <Dependent Role="UserWorkout">
+              <PropertyRef Name="MetricID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserWorko__UserI__04E4BC85">
+          <End Type="FitnessTrackerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="FitnessTrackerModel.UserWorkout" Role="UserWorkout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserWorkout">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FitnessTrackerModelStoreContainer" CdmEntityContainer="FitnessTrackerEntities">
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="FitnessTrackerModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FitnessGoals">
+            <EntityTypeMapping TypeName="FitnessTrackerModel.FitnessGoal">
+              <MappingFragment StoreEntitySet="FitnessGoal">
+                <ScalarProperty Name="ActualCalories" ColumnName="ActualCalories" />
+                <ScalarProperty Name="GoalID" ColumnName="GoalID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="TargetCalories" ColumnName="TargetCalories" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FitnessRecords">
+            <EntityTypeMapping TypeName="FitnessTrackerModel.FitnessRecord">
+              <MappingFragment StoreEntitySet="FitnessRecord">
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="NoOfMetricID" ColumnName="NoOfMetricID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Metrics">
+            <EntityTypeMapping TypeName="FitnessTrackerModel.Metric">
+              <MappingFragment StoreEntitySet="Metric">
+                <ScalarProperty Name="TargetCalories" ColumnName="TargetCalories" />
+                <ScalarProperty Name="UnitOfMeasurement" ColumnName="UnitOfMeasurement" />
+                <ScalarProperty Name="MetricID" ColumnName="MetricID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="FitnessTrackerModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserWorkouts">
+            <EntityTypeMapping TypeName="FitnessTrackerModel.UserWorkout">
+              <MappingFragment StoreEntitySet="UserWorkouts">
+                <ScalarProperty Name="WorkoutDate" ColumnName="WorkoutDate" />
+                <ScalarProperty Name="CaloriesBurnt" ColumnName="CaloriesBurnt" />
+                <ScalarProperty Name="UserWorkout1" ColumnName="UserWorkout" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="MetricID" ColumnName="MetricID" />
+                <ScalarProperty Name="UserWorkoutID" ColumnName="UserWorkoutID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
