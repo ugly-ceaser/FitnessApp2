@@ -1,0 +1,114 @@
+# ASP.NET Core generated files
+bin/
+obj/
+
+# User-specific files
+*.swp
+*~ 
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+Generated\
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/
+.vscode/*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+
+# Local history for Visual Studio
+.vs/
+
+# User-specific files
+*.rsuser
+*.rsds
+*.rsbak
+*.rusr
+
+# Windows lock file
+.DS_Store
+
+# Backup files
+*.bak
+*.old
+*.orig
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Aa][Aa][Rr][Mm]/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# OS generated files
+*.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+[Tt]humbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Logs and database
+*.log
+*.ldf
+*.mdf
+
+# Web server logs
+logs/
+
+# Test results
+*.trx
+*.coverage
+*.testresults
+
+# Build directories
+/out/
+build/
+out/
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# User-specific files (Mono auto generated)
+mono_crash.*
+
+# Configurations
+config.yaml
+appsettings.json
+appsettings.*.json
